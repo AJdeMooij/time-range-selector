@@ -162,7 +162,7 @@ Set this option to false if you want to use the 12-hour clock. This changes the 
 $( 'time-selector' ).selectorTable( 'destroy' );
 ```
 Removes the time-selector table from the div-element it had been attached to and returns the div to it's old state.
-<h3 name="api-getTimes">getTimes()s</h3>
+<h3 name="api-getTimes">getTimes()</h3>
 ```javascript
 var times = $( 'time-selector' ).selectorTable( 'getTimes' );
 ```
