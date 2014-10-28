@@ -1,3 +1,5 @@
+// Requires JQuery and MomentJs
+
 (function($) {  
     $.widget("ui.selectorTable", {
         first: null, last: null, add: "ui-custom-selected", mouseDown: 0, hourComplete: 60,
@@ -144,11 +146,17 @@
         },
         reset: function()
         {
+            var that = this;
+            var o = that.options;
+
             $("#select-time-table tbody td").each(function(c, cell){
                 $(cell).removeClass("ui-custom-selected");
                 $(cell).children()
             });
             $('#select-time-table tbody td :checkbox:checked').prop('checked',false);
+
+            that._preSelect(o.selected);
+            that._finishSelection();
         },
         _changeSelection: function()
         {
@@ -272,20 +280,10 @@
             var o = that.options;
 
             var times = $(cell).attr("id").split("-");
-
+            
             var hour = parseInt(times[0]);
 
-            var pm = "";
-            if (!o.hourFormat24)
-            {
-                if (hour > 12)
-                {
-                    hour = hour - 12;
-                    pm = " pm";
-                } else {
-                    pm = " am";
-                }
-            }
+            var minutes = parseInt(times[1]);
 
             var minutes = parseInt(times[1]);
             if (last)
@@ -298,12 +296,10 @@
                 }
             }
 
-            if (minutes == 0)
-            {
-                minutes = "00";
-            }
+            var time = moment({hour: hour, minute: minutes});
 
-            return hour + ":" + minutes + pm;
+            return time;
+
         },
         _mkDouble: function(i)
         {
@@ -367,11 +363,3 @@
         }
     });
 })(jQuery);
-
-
-
-
-
-
-
-
