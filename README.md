@@ -1,9 +1,16 @@
 Timerange Selector (JQuery UI Widget)
 ===================
+Author: Jan de Mooij
+License: GNU GENERAL PUBLIC LICENSE Version 2, June 1991 (see LICENSE file)
 
 jQuery UI widget for dragging over a table to select (multiple) timeranges. The widget is tied to an html div. 
 Once the widget is initialized, it generates a table with a row for each hour and a cell for each minute interval within that hour. 
 The user can select multiple timeranges in the table, usually for one single day. 
+
+This widget requires <a href="http://jquery.com/">jQuery</a> (version 1.11 or up) and <a href="http://momentjs.com/">moment.js</a>
+
+Make sure you load jQuery first and then moment.js 
+Only after that should you load the widget.
 
 HTML:
 ```html
@@ -128,8 +135,8 @@ json array
 $("time-selector").selectorTable({
   options: {
     selected: [ // Default is NULL
-      ["08:30", "18:00"],
-      ["20:00", "21:00"]
+      ["08:30", "18:00"], // preselects 8:30 am to 6:00 pm
+      ["20:00", "21:00"] // preselects 8:00 am to 9:00 pm
     ]
   }
 });
@@ -150,7 +157,7 @@ $("time-selector").selectorTable({
 Set this option to false if you want to use the 12-hour clock. This changes the formatting of the first cell of each row to show the time as a number from 0 to 12 with 'am' or 'pm' added.
 
 
-<h3 name="destroy">destroy()</h3>
+<h3 name="api-destroy">destroy()</h3>
 ```javascript
 $( 'time-selector' ).selectorTable( 'destroy' );
 ```
@@ -163,7 +170,7 @@ Returns a json array of arrays containing time-range begin and end pairs. All th
 The typical format of this json would be:
   [ [moment(starttime1), moment(endtime1)], [moment(starttime2), moment(endtime2)] ]
   
-<h3 name="reset">reset()</h3>
+<h3 name="api-reset">reset()</h3>
 ```javascript
 $( 'time-selector' ).selectorTable( 'reset' );
 ```
