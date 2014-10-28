@@ -12,9 +12,15 @@ HTML:
     <!-- Load JQuery -->
     <!-- Load moments.js -->
     <link type="text/css" rel="stylesheet" href="timerange-selector-ui/timerangeselector.css"/>
+    <script src="timerange-selector-ui-/jquery.ui.timerangeselector.js"></script>
+  </head>
     
   <body>
     <div id="time-selector"></div>
+    
+    <script>
+      $("time-selector").selectorTable();
+    </script>
   </body>
 </html>
 ```
@@ -28,7 +34,7 @@ HTML:
 </thead>
 <tbody>
 <tr>
-<td>Resolution</td>
+<td><a href="#resolution">Resolution</a></td>
 <td>_create</td>
 </tr>
 
@@ -47,4 +53,4 @@ HTML:
 </tbody>
 </table>
 
-
+<h3 name="api-resolution">Resolution</h3>
