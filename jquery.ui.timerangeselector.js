@@ -34,7 +34,7 @@
 
             for (i = 0; i <= that._hourComplete; i = i+o.resolution)
             {
-                table += '<th class="timepicker-header">' + i + '</th>';
+                table += '<th class="timepicker-header" id="minutes-' + that._mkDouble(i) + '">' + i + '</th>';
             }
             
             table += '</tr></thead>';
@@ -42,7 +42,7 @@
             // Create body
             for (i = o.hourStart; i <= o.hourEnd; i++)
             {
-                table += '<tr id="' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + that._timeFromHour(i) + ' ' + o.hourText + '</th>';
+                table += '<tr id="hour-' + that._mkDouble(i) + '" class="hour"><th class="time-picker-row-header">' + that._timeFromHour(i) + ' ' + o.hourText + '</th>';
                 for (j = 0; j <= that._hourComplete; j = j + o.resolution)
                 {
                     table += '<td id="' + that._mkDouble(i) + '-' + that._mkDouble(j) + '">';
@@ -85,6 +85,7 @@
                 that._changeSelection();
 
             }).mouseover(function(){
+                that._mousePointer($(this));
                 if (that.mouseDown == 1)
                 {
                     if (!$(this).hasClass(that.add))
@@ -285,7 +286,6 @@
 
             var minutes = parseInt(times[1]);
 
-            var minutes = parseInt(times[1]);
             if (last)
             {
                 minutes += that.options.resolution;
@@ -359,6 +359,35 @@
                 } else {
                     return [hour + " am"];
                 }
+            }
+        },
+        _mousePointer: function(cell)
+        {
+            var that = this;
+            var o = that.options;
+
+            var times = $(cell).attr("id").split("-");
+            var hour = parseInt(times[0]);
+            var minutes = parseInt(times[1]);
+
+            $("#select-time-table td").each(function () {
+                $(this).removeClass('ui-custom-hovering');
+            });
+
+            $("#select-time-table th").each(function () {
+                $(this).removeClass('ui-custom-hovering');
+            });
+
+            $("#hour-" + that._mkDouble(hour) + " th").addClass("ui-custom-hovering");
+            $("#minutes-" + that._mkDouble(minutes)).addClass("ui-custom-hovering");
+
+            $("tr#" + hour + " td").addClass("ui-custom-hovering");
+
+            $("#hour-" + that._mkDouble(hour) + " td").addClass("ui-custom-hovering");
+
+            for (var i = o.hourStart; i <= o.hourEnd; i++)
+            {
+                $("#" + that._mkDouble(i) + "-" + that._mkDouble(minutes)).addClass("ui-custom-hovering");
             }
         }
     });
